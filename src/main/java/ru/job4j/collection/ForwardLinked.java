@@ -14,14 +14,14 @@ public class ForwardLinked<T> implements Iterable<T> {
     }
 
     public void add(T value) {
+        final Node<T> newNode = new Node<T>(value, null);
         Node<T> l = head;
-        for (int i = 1; i < size; i++) {
-            l = l.next;
-        }
-        final Node<T> newNode = new Node<>(value, null);
         if (l == null) {
             head = newNode;
         } else {
+            while (l.next != null) {
+                l = l.next;
+            }
             l.next = newNode;
         }
         size++;
@@ -38,16 +38,13 @@ public class ForwardLinked<T> implements Iterable<T> {
     }
 
     public T deleteFirst() {
-        T item;
-        if (head != null && head.next != null) {
-            item = head.item;
-            head = head.next;
-        } else if (head != null) {
-            item = head.item;
-            head = new Node<>(null, null);
-        } else {
+        if (head == null) {
             throw new NoSuchElementException();
         }
+        T item = head.item;
+        head = head.next != null
+                ? head.next
+                : new Node<>(null, null);
         return item;
     }
 
@@ -55,15 +52,14 @@ public class ForwardLinked<T> implements Iterable<T> {
     public Iterator<T> iterator() {
         return new Iterator<>() {
             final int expectedModCount = modCount;
-            Node<T> node;
+            Node<T> node = head;
 
             @Override
             public boolean hasNext() {
                 if (expectedModCount != modCount) {
                     throw new ConcurrentModificationException();
                 }
-                return ((node == null && head != null)
-                        || (node != null && node.next != null));
+                return node != null;
             }
 
             @Override
@@ -71,12 +67,9 @@ public class ForwardLinked<T> implements Iterable<T> {
                 if (!hasNext()) {
                     throw new NoSuchElementException();
                 }
-                if (node == null) {
-                    node = head;
-                } else {
-                    node = node.next;
-                }
-                return node.item;
+                T item = node.item;
+                node = node.next;
+                return item;
             }
         };
     }
