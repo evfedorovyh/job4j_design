@@ -1,0 +1,3 @@
+name=Ivan Petrov
+school=2
+nickname=Ivan=1=
