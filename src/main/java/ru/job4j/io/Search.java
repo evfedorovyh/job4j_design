@@ -23,9 +23,13 @@ public class Search {
     private static void validate(String[] args) {
         if (args.length == 0) {
             throw new IllegalArgumentException("Root folder is null. Usage  ROOT_FOLDER.");
+        } else if (!Files.isDirectory(Path.of(args[0]))) {
+            throw new IllegalArgumentException(String.format("Not directory %s", Path.of(args[0]).toAbsolutePath().toString()));
         }
         if (args.length == 1) {
             throw new IllegalArgumentException("File extension is null. Usage  FILE_EXTENSION.");
+        } else if (!args[1].startsWith(".")) {
+            throw new IllegalArgumentException(String.format("Not extension %s", args[1]));
         }
     }
 }
