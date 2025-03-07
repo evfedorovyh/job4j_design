@@ -1,14 +1,14 @@
 package ru.job4j.regex;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class RegexExample {
     public static void main(String[] args) {
-        Pattern pattern = Pattern.compile("123");
-        String text = "1231 и 1232 и 1233";
+        Pattern pattern = Pattern.compile("\\b\\d{2}\\.\\d{2}\\.\\d{4}\\b");
+        String text = "24.04.1987 11.11.111111 99.99.99991 99.99.9999 99999999 0000.00.00";
         Matcher matcher = pattern.matcher(text);
-        String result = matcher.replaceAll("Job4j");
-        System.out.println(result);
+        while (matcher.find()) {
+            System.out.println("Найдено совпадение: " + matcher.group());
+        }
     }
 }
