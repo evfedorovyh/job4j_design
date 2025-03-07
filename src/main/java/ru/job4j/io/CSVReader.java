@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
+import java.util.regex.Pattern;
 
 public class CSVReader {
     public static void handle(ArgsName argsName) {
@@ -50,6 +51,9 @@ public class CSVReader {
         }
         if (!Files.isRegularFile(Paths.get(argsName.get("out"))) && !"stdout".equals(argsName.get("out"))) {
             throw new IllegalArgumentException(String.format("Key \"%s\" is wrong", argsName.get("out")));
+        }
+        if (Pattern.compile("\\W,").matcher(argsName.get("filter")).find())  {
+            throw new IllegalArgumentException(String.format("Key \"%s\" is wrong", argsName.get("filter")));
         }
         handle(argsName);
     }
