@@ -12,5 +12,15 @@ public class UsageLog4j {
         LOG.info("info message");
         LOG.warn("warn message");
         LOG.error("error message");
+        boolean bool = true;
+        byte b = 100;
+        short sh = 5183;
+        char ch = 'r';
+        int i = 574993;
+        long l = 354832L;
+        float f = 4e2F;
+        double d = 1243e5D;
+        LOG.debug("Var info:\n bool={},\n b={},\n sh={},\n ch={},\n i={},\n l={},\n f={},\n d={},\n",
+                bool, b, sh, ch, i, l, f, d);
     }
 }
