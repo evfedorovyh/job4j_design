@@ -17,10 +17,10 @@ public class EchoServer {
                      BufferedReader input = new BufferedReader(
                              new InputStreamReader(socket.getInputStream()))) {
                     String string = input.readLine();
-                    if (string.contains("Hello")) {
+                    if (string.contains("msg=Hello")) {
                         output.write("HTTP/1.1 200 OK\r\n\r\n".getBytes());
                         output.write("Hello, dear friend.".getBytes());
-                    } else if (string.contains("Exit")) {
+                    } else if (string.contains("msg=Exit")) {
                         serverIsOpen = false;
                     } else {
                         output.write("HTTP/1.1 200 OK\r\n\r\n".getBytes());
