@@ -1,7 +1,10 @@
 package ru.job4j.serialization;
 
 public class Engine {
-    private final String engine;
+    private String engine;
+
+    public Engine() {
+    }
 
     public Engine(String engine) {
         this.engine = engine;

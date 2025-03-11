@@ -6,11 +6,14 @@ import com.google.gson.GsonBuilder;
 import java.util.Arrays;
 
 public class Transport {
-    private final boolean isBus;
-    private final int seatCount;
-    private final String model;
-    private final Engine engine;
-    private final String[] features;
+    private boolean isBus;
+    private int seatCount;
+    private String model;
+    private Engine engine;
+    private String[] features;
+
+    public Transport() {
+    }
 
     public Transport(boolean isBus, int seatCount, String model, Engine engine, String[] features) {
         this.isBus = isBus;
