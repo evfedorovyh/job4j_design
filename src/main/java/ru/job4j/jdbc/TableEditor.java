@@ -8,14 +8,13 @@ import java.util.StringJoiner;
 
 public class TableEditor implements AutoCloseable {
     private Connection connection;
-    private final Properties properties;
 
-    public TableEditor(Properties properties) throws IOException, SQLException, ClassNotFoundException {
-        this.properties = properties;
+    public TableEditor() throws IOException, SQLException, ClassNotFoundException {
         initConnection();
     }
 
     private void initConnection() throws IOException, ClassNotFoundException, SQLException {
+        Properties properties = new Properties();
         try (InputStream in = TableEditor.class.getClassLoader().getResourceAsStream("app.properties")) {
             properties.load(in);
         }
@@ -110,7 +109,7 @@ public class TableEditor implements AutoCloseable {
     }
 
     public static void main(String[] args) throws Exception {
-        try (TableEditor tableEditor = new TableEditor(new Properties())) {
+        try (TableEditor tableEditor = new TableEditor()) {
             tableEditor.createTable("demo_table");
             System.out.println(tableEditor.getTableScheme("demo_table"));
             tableEditor.addColumn("demo_table", "amount", "INT");
