@@ -1,0 +1,35 @@
+CREATE TABLE company
+(
+    id integer NOT NULL,
+    name character varying,
+    CONSTRAINT company_pkey PRIMARY KEY (id)
+);
+
+CREATE TABLE person
+(
+    id integer NOT NULL,
+    name character varying,
+    company_id integer references company(id),
+    CONSTRAINT person_pkey PRIMARY KEY (id)
+);
+
+-- 1
+SELECT p.name, c.name
+FROM person p
+JOIN company c ON p.company_id = c.id
+WHERE company_id != 5;
+
+-- 2
+SELECT c_name, count_id
+FROM(
+	SELECT c.name as c_name, COUNT(p.id) as count_id
+	FROM person p
+	JOIN company c ON c.id = p.company_id
+	GROUP BY c.name)
+WHERE count_id = (
+	SELECT MAX(count_id)
+	FROM(
+		SELECT c.name as c_name, COUNT(p.id) as count_id
+		FROM person p
+		JOIN company c ON c.id = p.company_id
+		GROUP BY c.name));
